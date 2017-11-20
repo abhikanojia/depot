@@ -33,10 +33,8 @@ class ProductTest < ActiveSupport::TestCase
     Product.new(title:
     "My Book Title",
     description: "yyy",
-    price:
-    1,
-    image_url:
-    image_url)
+    price: 1,
+    image_url: image_url)
   end
 
   test "image url" do
@@ -52,16 +50,23 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "product is not valid without a unique title" do
-    product = Product.new(title:
-    description:
-    price:
-    image_url:
-    unique title" do
-    products(:ruby).title,
-    "yyy",
-    1,
-    "fred.gif")
+    product = Product.new(title: products(:ruby).title,
+                          description: "yyy",
+                          price:       1,
+                          image_url:   "fred.gif")
+
     assert product.invalid?
     assert_equal ["has already been taken"], product.errors[:title]
+  end
+
+  test "product is not valid without a unique title - i18n" do
+    product = Product.new(title:       products(:ruby).title,
+                          description: "yyy",
+                          price:       1,
+                          image_url:   "fred.gif")
+
+    assert product.invalid?
+    assert_equal [I18n.translate('errors.messages.taken')],
+                 product.errors[:title]
   end
 end
