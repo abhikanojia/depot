@@ -1,0 +1,26 @@
+<div class="depot_form">
+  <fieldset>
+    <legend>Enter User Details</legend>
+    <%= form_for(user) do |f| %>
+      <%= render :partial => 'errors/users' %>
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name, size: 40 %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password, 'Password' %>
+        <%= f.password_field :password, size: 40 %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation, 'Confirm' %>
+        <%= f.password_field :password_confirmation, size: 40 %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
