@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
+  include UserLoggedIn
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_user_not_destroying_itself, only: [:destroy]
 
   # GET /users
   # GET /users.json
@@ -70,5 +72,11 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :password, :password_confirmation)
+    end
+
+    def ensure_user_not_destroying_itself
+      if current_user.id == @user.id
+        redirect_to users_url, notice: "Cannot delete yourself."
+      end
     end
 end
