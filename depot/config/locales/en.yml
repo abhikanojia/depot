@@ -53,40 +53,15 @@ en:
   line_items:
     line_item:
         remove: "Remove"
+  orders:
+    new:
+      legend: "Please enter your details"
+    form:
+      name: "Name"
+      address_html: "Address"
+      email: "E-mail"
+      pay_type: "Pay with"
+      pay_prompt_html: "Select a payment method"
+      submit: "Place Order"
 
-
-es:
-  layouts:
-    application:
-      title: "Biblioteca de Pragmatic"
-      home: "Inicio"
-      questions: "Preguntas"
-      news: "Noticias"
-      login: "Iniciar sesión"
-      logout: "saír"
-      orders: "ordes"
-      products: "produtos"
-      users: "usuarios"
-      edit_profile: "Editar perfil"
-      contact: "Contacto"
-  store:
-    index:
-      addtocart: "A&ntilde;adir al Carrito"
-      heading: "Su Cat&aacute;logo de Pragmatic"
-  carts:
-    cart:
-      title: "Carrito de la Compra"
-      empty: "Vaciar Carrito"
-      checkout: "Comprar"
-
-  number:
-    currency:
-      format:
-        unit: "$US"
-        precision: 2
-        separator: "."
-        delimiter: ","
-        format: "%n&nbsp;%u"
-  line_items:
-    line_item:
-        remove: "Sacar"
+  thanks: 'Thank You for your order.'
