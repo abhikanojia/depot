@@ -23,22 +23,22 @@
           <% end %>
         </div>
         <ul>
-          <li><%= link_to "Home", store_index_url %></li>
-          <li><a href="http://www..../faq">Questions</a></li>
-          <li><a href="http://www..../news">News</a></li>
-          <li><a href="http://www..../contact">Contact</a></li>
+          <li><%= link_to t('.home'), store_index_url %></li>
+          <li><a href="http://www..../faq"><%= t('.questions') %></a></li>
+          <li><a href="http://www..../news"><%= t('.news') %></a></li>
+          <li><a href="http://www..../contact"><%= t('.contact') %></a></li>
           <li><a>Time: <%= Time.now.strftime("%I:%M%p") %></a></li>
         </ul>
         <% if current_user %>
           <ul>
-            <li><%= link_to "Orders", orders_url %></li>
-            <li><%= link_to "Products", products_url %></li>
-            <li><%= link_to "Users", users_url %></li>
-            <li><%= link_to "Edit Profile", edit_user_url(current_user) %></li>
+            <li><%= link_to t('.orders'), orders_url %></li>
+            <li><%= link_to t('.products'), products_url %></li>
+            <li><%= link_to t('.users'), users_url %></li>
+            <li><%= link_to t('.edit_profile'), edit_user_url(current_user) %></li>
           </ul>
-          <%= button_to "Logout", logout_url, method: :delete %>
+          <%= button_to t('.logout'), logout_url, method: :delete %>
         <% else %>
-          <%= button_to "Login", login_url, method: :get %>
+          <%= button_to t('.login'), login_url, method: :get %>
         <% end %>
       </div>
       <div id="main">
