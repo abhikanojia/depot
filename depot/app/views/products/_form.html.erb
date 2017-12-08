@@ -31,6 +31,21 @@
     <%= f.text_field :price %>
   </div>
 
+  <div class="field">
+    <%= f.label :enabled %>
+    <%= f.check_box :enabled, checked_value: true, unchecked_value: false %>
+  </div>
+
+  <div class="field">
+    <%= f.label :discount_price %>
+    <%= f.text_field :discount_price %>
+  </div>
+
+  <div class="field">
+    <%= f.label :permalink %>
+    <%= f.text_field :permalink %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
