@@ -29,6 +29,8 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.perform_deliveries = true
+
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
@@ -52,20 +54,14 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  Depot::Application.configure do
-    config.action_mailer.delivery_method = :smtp
-    config.action_mailer.smtp_settings = {
-      address: "smtp.gmail.com",
-      port: 587,
-      domain: "mail.gmail.com",
-      authentication: "plain",
-      user_name: "dave",
-      password: "secret",
-      enable_starttls_auto: true
-    }
-  end
   config.action_mailer.delivery_method = :smtp
 
-  config.action_mailer.perform_deliveries = true
-
+  config.action_mailer.smtp_settings = {
+       :address => "smtp.gmail.com",
+       :port => 587,
+       :user_name => "abhikanojiatest@gmail.com",
+       :password => "test@2013",
+       :authentication => :plain,
+       :enable_starttls_auto => true
+  }
 end
