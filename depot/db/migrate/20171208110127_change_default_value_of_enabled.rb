@@ -1,7 +1,5 @@
 class ChangeDefaultValueOfEnabled < ActiveRecord::Migration[5.0]
   def change
-    change_column_default :products do |t|
-      t.boolean :enabled, false
-    end
+    change_column_default :products, :enabled, from: nil, to: false
   end
 end

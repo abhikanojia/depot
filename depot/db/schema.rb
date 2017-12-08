@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20171208115426) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.boolean  "enabled",                                default: false
-    t.decimal  "discount_price"
     t.string   "permalink"
+    t.decimal  "discount_price"
   end
 
   create_table "users", force: :cascade do |t|
