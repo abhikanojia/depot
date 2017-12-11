@@ -8,6 +8,11 @@
         <%= f.text_field :name, size: 40 %>
       </div>
 
+       <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email %>
+      </div>
+
       <div class="field">
         <%= f.label :password, 'Password' %>
         <%= f.password_field :password, size: 40 %>
