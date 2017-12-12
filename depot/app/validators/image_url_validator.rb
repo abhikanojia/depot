@@ -1,4 +1,4 @@
-class UrlValidator < ActiveModel::EachValidator
+class ImageUrlValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     unless value =~ /\.(gif|jpg|png)\Z/i
       record.errors.add attribute, 'must be a URL for GIF, JPG or PNG image.'

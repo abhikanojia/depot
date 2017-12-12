@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  EMAIL_REGEX = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
+  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
   validates :name, presence: true, uniqueness: true
-  validates :email, uniqueness: true, format: { with: EMAIL_REGEX, multiline: true }
+  validates :email, uniqueness: true, format: { with: EMAIL_REGEX, multiline: true. case_sensitive: false }
   has_secure_password
 
   after_destroy :ensure_an_admin_remains
