@@ -11,10 +11,11 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_nil: true
   validates :discount_price, numericality: { greater_than_or_equal_to: 0, less_than: -> (product) { product.price } }, allow_nil: true
   validates :permalink, uniqueness: { case_sensitive: false }, format: { with: PERMALINK_REGEX }
-  validates_length_of :permalink, length: :words_in_permalink, minimum: 3, message: 'Must be atleast 3 words'
+  validates_length_of :words_in_permalink, minimum: 3, message: 'Must be atleast 3 words'
   validates :description, presence: true
-  validates_length_of :description, length: :words_in_description, minimum: 5,
-  too_short: 'Must have atleast 5 words'
+  validates_length_of :words_in_description, minimum: 5, maximum: 10,
+    too_short: 'Must have atleast 5 words',
+    too_long: 'Must be atmost 10 words'
   # validates :discount_price, with: :validate_price_greater_than_discount
 
   private
