@@ -9,27 +9,23 @@ class Product < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :image_url, presence: true, allow_blank: true, image_url: true
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_nil: true
-  validates :discount_price, numericality: { less_than: -> (product) { product.price } }, if: 'price.present?'
-  validates :permalink, presence: true, uniqueness: true, length: {
-    minimum: 3,
-    case_sensitive: false,
-    tokenizer: lambda { |permalink| permalink.scan(/\w+\-?/) },
-    message: 'Must be atleast 3 words separated by hyphens.'
-  }, format: {
-    with: PERMALINK_REGEX,
-    multiline: true,
-    message: 'must not contain spaces and special characters other than hyphen between 2 words.'
-  }
-  validates :description, presence: true, length: {
-    minimum: 5,
-    maximum: 10,
-    tokenizer: lambda { |description| description.scan(/\w+/) },
-    too_short: 'Must have atleast 5 words',
-    too_long: 'Must have atmost 10 words'
-  }
+  validates :discount_price, numericality: { greater_than_or_equal_to: 0, less_than: -> (product) { product.price } }, allow_nil: true
+  validates :permalink, uniqueness: { case_sensitive: false }, format: { with: PERMALINK_REGEX }
+  validates_length_of :permalink, length: :words_in_permalink, minimum: 3, message: 'Must be atleast 3 words'
+  validates :description, presence: true
+  validates_length_of :description, length: :words_in_description, minimum: 5,
+  too_short: 'Must have atleast 5 words'
   # validates :discount_price, with: :validate_price_greater_than_discount
 
   private
+
+  def words_in_description
+    description.scan(/\w+/)
+  end
+
+  def words_in_permalink
+    permalink.scan(/\w+\-?/)
+  end
 
   def ensure_not_referenced_by_any_line_item
     unless line_items.empty?
