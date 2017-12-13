@@ -8,7 +8,7 @@ class Product < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :image_url, presence: true, allow_blank: true, image_url: true
   validates :price, numericality: { greater_than_or_equal_to: 0.01 }, allow_nil: true
-  validates :discount_price, numericality: { less_than: -> (product) { product.price }, if: 'price.present?' }
+  validates :discount_price, numericality: { less_than: -> (product) { product.price } }, if: 'price.present?'
   validates :permalink, presence: true, uniqueness: true, length: {
     minimum: 3,
     case_sensitive: false,
