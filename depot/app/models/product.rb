@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   # constants
+  PERMALINK_REGEX = /^[a-z0-9]+\-?[a-z0-9]+$/i
+
   has_many :line_items
   has_many :orders, through: :line_items
   before_destroy :ensure_not_referenced_by_any_line_item
@@ -13,7 +15,11 @@ class Product < ApplicationRecord
     minimum: 3,
     case_sensitive: false,
     tokenizer: lambda { |permalink| permalink.scan(/\w+\-?/) },
-    message: 'Must be atleast 3 words separated by hyphens'
+    message: 'Must be atleast 3 words separated by hyphens.'
+  }, format: {
+    with: PERMALINK_REGEX,
+    multiline: true,
+    message: 'must not contain spaces and special characters other than hyphen between 2 words.'
   }
   validates :description, presence: true, length: {
     minimum: 5,
