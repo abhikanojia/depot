@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   # constants
-  PERMALINK_REGEX = /^[a-z0-9]+\-?[a-z0-9]+$/i
+  PERMALINK_REGEX = /\A[^\s!#$%^&*()（）=+;:'"\[\]\{\}|\\\/<>?,]+\z/i
 
   has_many :line_items
   has_many :orders, through: :line_items
