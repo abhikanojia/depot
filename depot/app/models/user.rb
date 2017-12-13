@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true, uniqueness: true
   validates :email, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX, multiline: true }
   has_secure_password
