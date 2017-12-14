@@ -62,7 +62,7 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to users_url, notice: 'Cannot delete admin.' }
+        format.html { redirect_to users_url, notice: @user.errors.full_messages }
       end
     end
   end
@@ -81,12 +81,6 @@ class UsersController < ApplicationController
     def ensure_user_not_destroying_itself
       if current_user.id == @user.id
         redirect_to users_url, notice: "Cannot delete yourself."
-      end
-    end
-
-    def verify_user_is_not_admin
-      if @user.email.eql? 'admin@depot.com'
-        redirect_to users_url, notice: 'Cannot delete Depot Admin.'
       end
     end
 end

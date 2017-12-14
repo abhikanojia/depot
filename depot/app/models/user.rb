@@ -7,7 +7,7 @@ class User < ApplicationRecord
   after_destroy :ensure_an_admin_remains
   before_destroy :ensure_not_destroying_admin
   before_update :ensure_not_updating_admin
-  after_create :send_welcome_email_to_user
+  after_create_commit :send_welcome_email_to_user
 
   class Error < StandardError
   end
@@ -23,12 +23,18 @@ class User < ApplicationRecord
       UserMailer.welcome_user(self).deliver_now
     end
 
+    def user_is_admin?
+      self.email.eql? 'admin@depot.com'
+    end
+
     def ensure_not_destroying_admin
-    throw :abort if self.email.eql? 'admin@depot.com'
+     throw :abort if user_is_admin?
     end
 
     def ensure_not_updating_admin
-      errors.add(:base, 'Cannot update depot admin.') if self.email.eql? 'admin@depot.com'
-      throw :abort
+      if user_is_admin?
+        errors.add(:base, 'Cannot update depot admin.')
+        throw :abort
+      end
     end
 end

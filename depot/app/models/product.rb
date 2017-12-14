@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   # constants
   PERMALINK_REGEX = /\A[^\s!#$%^&*()（）=+;:'"\[\]\{\}|\\\/<>?,]+\z/i
+  DEFAULT_TITLE = 'abc'
 
   has_many :line_items
   has_many :orders, through: :line_items
@@ -28,7 +29,7 @@ class Product < ApplicationRecord
   end
 
   def set_default_title
-    self.title = 'abc'
+    self.title = DEFAULT_TITLE
   end
 
   def words_in_description
