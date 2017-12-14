@@ -7,7 +7,7 @@ class User < ApplicationRecord
   after_destroy :ensure_an_admin_remains
   before_destroy :ensure_not_destroying_admin
   before_update :ensure_not_updating_admin
-  after_create_commit :send_welcome_email_to_user
+  # after_create_commit :send_welcome_email
 
   class Error < StandardError
   end
@@ -19,7 +19,7 @@ class User < ApplicationRecord
       end
     end
 
-    def send_welcome_email_to_user
+    def send_welcome_email
       UserMailer.welcome_user(self).deliver_now
     end
 
@@ -28,7 +28,10 @@ class User < ApplicationRecord
     end
 
     def ensure_not_destroying_admin
-     throw :abort if user_is_admin?
+      if user_is_admin?
+        errors.add(:base, 'Cannot delete depot admin.')
+        throw :abort
+      end
     end
 
     def ensure_not_updating_admin

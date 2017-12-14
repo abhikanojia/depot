@@ -1,0 +1,9 @@
+<% if flash[:alert] %>
+  <p id="notice"><%= flash[:alert] %></p>
+<% elsif flash[:error] %>
+  <p id="notice"><%= flash[:error] %></p>
+<% elsif flash[:info] %>
+  <p id="notice"><%= flash[:info] %></p>
+<% elsif flash[:notice] %>
+  <p id="notice"><%= flash[:notice] %></p>
+<% end %>
