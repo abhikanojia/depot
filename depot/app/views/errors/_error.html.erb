@@ -1,10 +1,9 @@
- <% if @order.errors.any? %>
+<% if object.errors.any? %>
   <div id="error_explanation">
-    <h2><%=raw t('errors.error.header', count: @order.errors.count,
-        model: t('activerecord.models.order')) %>.</h2>
-    <p><%= t('errors.error.body') %></p>
+    <h2><%=raw t('errors.error.header', count: object.errors.count,
+        model: t('activerecord.modelsobject')) %>.</h2>
     <ul>
-    <% @order.errors.full_messages.each do |message| %>
+    <% object.errors.full_messages.each do |message| %>
       <li><%=raw message %></li>
     <% end %>
     </ul>

@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   include UserLoggedIn
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_user_not_destroying_itself, only: [:destroy]
-
+  before_action :ensure_user_not_destroying_itself, only: :destroy
   # GET /users
   # GET /users.json
   def index
@@ -56,10 +55,15 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: @user.errors.full_messages }
+      end
     end
   end
 
