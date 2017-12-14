@@ -21,3 +21,4 @@
 .byebug_history
 /assets/images/*
 /.fuse*
+/config/secrets.yml
