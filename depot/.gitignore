@@ -21,4 +21,10 @@
 .byebug_history
 /assets/images/*
 /.fuse*
-/*.yml
+
+# Configuration files
+
+config/app_config.yml
+config/database.yml
+config/application.yml
+config/secrets.yml
