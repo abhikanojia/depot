@@ -62,7 +62,7 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to users_url, notice: @user.errors.full_messages }
+        format.html { redirect_to users_url, error: @user.errors.full_messages }
       end
     end
   end
