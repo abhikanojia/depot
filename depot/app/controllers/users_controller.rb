@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     else
       respond_to do |format|
         format.html { redirect_to users_url, error: @user.errors.full_messages }
-        format.json { render json: @user.errors.full_messages, status: :unprocessable_entity }
+        format.json { render json: { errors: @user.errors.full_messages }, status: 422 }
       end
     end
   end
