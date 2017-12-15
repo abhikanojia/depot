@@ -1,5 +1,5 @@
 <%= form_for(order) do |f| %>
-  <%= render partial: 'errors/error', locals: { object: order } %>
+  <%= render partial: 'shared/error', locals: { object: order } %>
   <div class="field">
     <%= f.label :name, t('.name') %>
     <%= f.text_field :name, size: 40 %>

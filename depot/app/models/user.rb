@@ -7,7 +7,7 @@ class User < ApplicationRecord
   after_destroy :ensure_an_admin_remains
   before_destroy :ensure_not_destroying_admin
   before_update :ensure_not_updating_admin
-  # after_create_commit :send_welcome_email
+  after_create_commit :send_welcome_email
 
   class Error < StandardError
   end
