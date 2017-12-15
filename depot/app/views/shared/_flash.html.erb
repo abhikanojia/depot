@@ -1,3 +1,3 @@
-<% if !flash.keys.empty? %>
-  <p id="notice"><%= flash[flash.keys.first] %></p>
+<% flash.each do |key, value| %>
+<p id="notice"><%= value %></p>
 <% end %>
