@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  get '/users/orders' => 'users#show_orders'
+
   resources :users
 
   scope '(:locale)' do
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
     resources :products
     root 'store#index', as: 'store_index', via: :all
   end
+
 
   resources :products do
     get :who_bought, on: :member

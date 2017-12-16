@@ -8,6 +8,9 @@ class User < ApplicationRecord
   before_destroy :ensure_not_destroying_admin
   before_update :ensure_not_updating_admin
   after_create_commit :send_welcome_email
+  # associations
+  has_many :orders
+  has_many :line_items, through: :orders
 
   class Error < StandardError
   end

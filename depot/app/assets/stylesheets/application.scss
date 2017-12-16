@@ -58,6 +58,12 @@ body, body > p, body > ol, body > ul, body > td {margin: 8px !important}
     padding: 1em;
     background: white;
     flex: 1;
+    table {
+      width: 100%;
+    }
+    table, th, td, thead, tbody {
+      border: 1px solid black;
+    }
   }
 
   #side {
