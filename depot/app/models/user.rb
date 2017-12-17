@@ -15,6 +15,10 @@ class User < ApplicationRecord
   class Error < StandardError
   end
 
+  def create_new_order(order_params)
+    orders.build(order_params)
+  end
+
   private
     def ensure_an_admin_remains
       if User.count.zero?

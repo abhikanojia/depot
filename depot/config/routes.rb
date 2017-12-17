@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   get '/users/orders' => 'users#show_orders'
+  get '/users/line_items' => 'users#show_line_items'
 
   resources :users
 

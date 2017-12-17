@@ -1,0 +1,24 @@
+<% if @line_items.present? %>
+  <h1>Line Items</h1>
+  <table class="table table-responsive">
+    <tr>
+      <th>Product Image</th>
+      <th>Product Title</th>
+      <th>Quantity</th>
+      <th>Total Price</th>
+    </tr>
+    <% @line_items.each do |item| %>
+      <tr>
+        <td><%= image_tag(item.product.image_url) %></td>
+        <td><%= item.product.title %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.total_price) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <hr />
+  <%= paginate @line_items %>
+  <%= page_entries_info @line_items %>
+<% else %>
+  <h3>No Line Items found.</h3>
+<% end %>

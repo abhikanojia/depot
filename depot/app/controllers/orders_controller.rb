@@ -1,7 +1,6 @@
 class OrdersController < ApplicationController
   include CurrentCart
-  include UserLoggedIn
-  skip_before_action :authorize, only: [:new, :create]
+  before_action :authorize, only: [:new, :create]
   before_action :set_cart, only: [:new, :create]
   before_action :ensure_cart_isnt_empty, only: :new
   before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -29,8 +28,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    # @order = Order.new(order_params)
-    @order = current_user.orders.build(order_params)
+    @order = current_user.create_new_order(order_params)
     @order.add_line_items_from_cart(@cart)
     respond_to do |format|
       if @order.save
@@ -71,6 +69,7 @@ class OrdersController < ApplicationController
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])

@@ -15,7 +15,6 @@ class Order < ApplicationRecord
 
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|
-      item.cart_id = cart.id
       line_items << item
     end
   end
@@ -25,5 +24,6 @@ class Order < ApplicationRecord
     line_items.each do |line_item|
       total_amount += line_item.total_price
     end
+    total_amount
   end
 end

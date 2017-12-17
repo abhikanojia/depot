@@ -72,6 +72,10 @@ class UsersController < ApplicationController
     @orders = current_user.orders
   end
 
+  def show_line_items
+    @line_items = current_user.line_items.page(params[:page])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

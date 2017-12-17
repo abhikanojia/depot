@@ -64,6 +64,21 @@ body, body > p, body > ol, body > ul, body > td {margin: 8px !important}
     table, th, td, thead, tbody {
       border: 1px solid black;
     }
+    .panel{
+      border: 1px solid black;
+      border-radius: 4px;
+      padding: 10px 10px;
+      .panel-body{
+        text-align: left;
+        font-size:14px;
+        span.right {
+          text-align: right;
+        }
+      }
+      .panel-footer{
+        border: 1px solid black;
+      }
+    }
   }
 
   #side {

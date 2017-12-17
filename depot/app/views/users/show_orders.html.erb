@@ -1,20 +1,24 @@
 <h2>Welcome, <%= current_user.name.capitalize %> </h2>
 <h4>Your Orders</h4>
-<table class="table table-responsive">
-  <thead>
-    <th>Order.No</th>
-    <th>Number of Items</th>
-    <th>Order Date ( mm-dd-yyyy )</th>
-    <th>Total Price</th>
-    <tbody>
-      <% @orders.each do |order| %>
-        <tr>
-          <td><%= order.id %></td>
-          <td><%= order.line_items.size %></td>
-          <td><%= order.created_at.strftime('%d-%m-%Y') %></td>
-          <td><%= number_to_currency(order.gross_total) %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </thead>
-</table>
+<% if @orders.present? %>
+  <% @orders.each do |order| %>
+    <div class="panel">
+      <h4>Order Id: <%= order.id %></h4>
+      <div class="panel-body">
+        <h4>No.of Items(<%= order.line_items.size %>)</h4>
+        <hr>
+        <h4>Item Details:</h4>
+        <ol>
+          <% order.line_items.each do |item| %>
+            <li><%= item.product.title %> (x <%= item.quantity %>)</li>
+          <% end %>
+        </ol>
+      </div>
+      <div class="panel-footer">
+        Total Price: <%= number_to_currency(order.gross_total) %></div>
+    </div>
+    <br>
+  <% end %>
+<% else %>
+  <h3>No Orders exists !</h3>
+<% end %>
