@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   has_many :line_items, dependent: :restrict_with_error
   has_many :orders, through: :line_items
   has_many :carts, through: :line_items
-  before_destroy :ensure_not_referenced_by_any_line_item
+  # before_destroy :ensure_not_referenced_by_any_line_item
 
   before_validation :set_default_title, unless: :title?
   before_validation :set_default_discount_price, unless: :discount_price?

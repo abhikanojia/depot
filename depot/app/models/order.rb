@@ -20,10 +20,6 @@ class Order < ApplicationRecord
   end
 
   def gross_total
-    total_amount = 0
-    line_items.each do |line_item|
-      total_amount += line_item.total_price
-    end
-    total_amount
+    line_items.inject(0) { |total_amount, item| total_amount += item.total_price }
   end
 end

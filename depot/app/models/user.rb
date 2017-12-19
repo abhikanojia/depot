@@ -9,7 +9,7 @@ class User < ApplicationRecord
   before_update :ensure_not_updating_admin
   after_create_commit :send_welcome_email
   # associations
-  has_many :orders
+  has_many :orders, dependent: :destroy
   has_many :line_items, through: :orders
 
   class Error < StandardError
