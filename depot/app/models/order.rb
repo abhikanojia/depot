@@ -3,6 +3,9 @@ class Order < ApplicationRecord
   has_many :line_items, dependent: :destroy
   belongs_to :user
 
+  # scope
+  scope :by_date, ->(from = Time.now.beginning_of_day, to = Time.now.end_of_day) { where(created_at: from..to) }
+
   enum pay_type: {
     "Check" => 0,
     "Credit Card" => 1,
