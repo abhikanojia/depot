@@ -68,11 +68,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def show_orders
+  def orders
     @orders = current_user.orders
   end
 
-  def show_line_items
+  def line_items
     @line_items = current_user.line_items.page(params[:page])
   end
 
