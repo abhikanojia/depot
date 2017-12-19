@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171216091648) do
+ActiveRecord::Schema.define(version: 20171219124729) do
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.integer  "line_items_count", default: 0, null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",               null: false
+    t.integer  "parent_category_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["parent_category_id"], name: "index_categories_on_parent_category_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -49,8 +57,8 @@ ActiveRecord::Schema.define(version: 20171216091648) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.boolean  "enabled",                                default: false
-    t.string   "permalink"
     t.decimal  "discount_price"
+    t.string   "permalink"
   end
 
   create_table "users", force: :cascade do |t|

@@ -65,3 +65,6 @@ en:
       submit: "Place Order"
     create:
       thanks: 'Thank You for your order.'
+  products:
+    form:
+      category: "Select a product category"

@@ -46,6 +46,12 @@
     <%= f.text_field :permalink %>
   </div>
 
+  <div class="field">
+    <%= f.label :category %>
+    <%= f.options_from_collection_for_select :category, Category.where(parent_category_id: nil).pluck(:name),
+      prompt: t('.category') %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
