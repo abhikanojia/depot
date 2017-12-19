@@ -48,8 +48,8 @@
 
   <div class="field">
     <%= f.label :category %>
-    <%= f.options_from_collection_for_select :category, Category.where(parent_category_id: nil).pluck(:name),
-      prompt: t('.category') %>
+    <% options = options_from_collection_for_select(Category.root_categories, 'id', 'name') %>
+    <%= f.select :category, options %>
   </div>
 
   <div class="actions">
