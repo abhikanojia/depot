@@ -47,9 +47,8 @@
   </div>
 
   <div class="field">
-    <%= f.label :category %>
-    <% options = options_from_collection_for_select(Category.root_categories, 'id', 'name') %>
-    <%= f.select :category, options %>
+    <%= f.label :category_id %>
+    <%= f.collection_select :category_id, Category.root_categories, :id, :name, prompt: 'Select Category' %>
   </div>
 
   <div class="actions">
