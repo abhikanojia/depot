@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get '/users/orders' => 'users#orders'
   get '/users/line_items' => 'users#line_items'
+  get '/products/categories' => 'products#categories'
 
   resources :users
 
