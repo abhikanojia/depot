@@ -81,7 +81,7 @@ class ProductsController < ApplicationController
   end
 
   def categories
-    @categories = Category.root_categories.includes(:sub_categories)
+    @categories = Category.includes(:sub_categories).root_categories
   end
 
   private

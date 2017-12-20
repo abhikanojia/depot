@@ -48,7 +48,7 @@
 
   <div class="field">
     <%= f.label :category_id %>
-    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: 'Select Category' %>
+    <%= f.collection_select :category_id, Category.all, :id, :name, prompt: t('.category_prompt') %>
   </div>
 
   <div class="actions">

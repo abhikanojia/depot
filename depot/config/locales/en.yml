@@ -67,4 +67,4 @@ en:
       thanks: 'Thank You for your order.'
   products:
     form:
-      category: "Select a product category"
+      category_prompt: "Select a product category"

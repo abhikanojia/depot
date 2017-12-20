@@ -2,7 +2,7 @@
 <ul>
   <% @categories.each do |category| %>
     <li><%= category.name %></li>
-    <% if !category.sub_categories.empty? %>
+    <% if category.sub_category_exists? %>
       <ul>
         <% category.sub_categories.each do |subcategory| %>
           <li><%= subcategory.name %></li>
