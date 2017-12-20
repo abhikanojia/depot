@@ -12,8 +12,11 @@ class Product < ApplicationRecord
   belongs_to :category, counter_cache: true
   # before_destroy :ensure_not_referenced_by_any_line_item
 
+  # callbacks
   before_validation :set_default_title, unless: :title?
   before_validation :set_default_discount_price, unless: :discount_price?
+  after_create_commit :increment_count_in_parent_category, if: :category_id?
+  after_destroy :decrement_count_in_parent_category
 
   validates :title, presence: true, uniqueness: true
   validates :image_url, presence: true, allow_blank: true, image_url: true
@@ -28,6 +31,22 @@ class Product < ApplicationRecord
   # validates :discount_price, with: :validate_price_greater_than_discount
 
   private
+
+  def parent_id
+    Category.find(self.category_id).parent_id
+  end
+
+  def decrement_count_in_parent_category
+    if !parent_id.nil?
+      Category.decrement_counter(:products_count, parent_id)
+    end
+  end
+
+  def increment_count_in_parent_category
+    if !parent_id.nil?
+      Category.increment_counter(:products_count, parent_id)
+    end
+  end
 
   def set_default_discount_price
     self.discount_price = price
