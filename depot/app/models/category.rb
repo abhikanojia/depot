@@ -9,21 +9,21 @@ class Category < ApplicationRecord
   # associations
   has_many :products, dependent: :restrict_with_error
   has_many :sub_categories, class_name: 'Category', foreign_key: 'parent_id', dependent: :destroy
-  belongs_to :parent_category, class_name: 'Category', optional: true
+  belongs_to :parent, class_name: 'Category', optional: true
   has_many :sub_category_products, through: :sub_categories, source: :products
 
   # callbacks
-  validates :parent_id, category: true
+  validates_with CategoryValidator
 
   def recalculate_products_count
     self.products_count = count_products
     save
-    parent_category.recalculate_products_count if parent_category.present?
+    parent.recalculate_products_count if parent.present?
   end
 
 
   def count_products
-    category_ids = sub_category_ids + id
+    category_ids = sub_category_ids << id
     Product.where(category_id: category_ids).count
   end
 end
