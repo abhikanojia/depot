@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   get '/users/orders' => 'users#orders'
   get '/users/line_items' => 'users#line_items'
-  get '/products/categories' => 'products#categories'
 
   resources :users
 
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
     resources :line_items
     resources :carts
     resources :products
+    resources :categories
     root 'store#index', as: 'store_index', via: :all
   end
 

@@ -13,26 +13,17 @@ class Category < ApplicationRecord
   has_many :sub_category_products, through: :sub_categories, source: :products
 
   # callbacks
-  before_destroy :ensure_no_products_exists
-  before_save :ensure_not_referring_to_sub_category, if: :parent_id?
+  validates :parent_id, category: true
 
-  def sub_category_exists?
-    !parent_id
+  def recalculate_products_count
+    self.products_count = count_products
+    save
+    parent_category.recalculate_products_count if parent_category.present?
   end
 
-  private
 
-    def ensure_no_products_exists
-      if !products.empty?
-        errors.add(:parent_id, 'Product exists in this category.')
-        throw :abort
-      end
-    end
-
-    def ensure_not_referring_to_sub_category
-      if Category.find(parent_id).parent_id?
-        errors.add(:base, "Cannot refer to subcategory.")
-        throw :abort
-      end
-    end
+  def count_products
+    category_ids = sub_category_ids + id
+    Product.where(category_id: category_ids).count
+  end
 end

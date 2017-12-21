@@ -9,15 +9,16 @@ class Product < ApplicationRecord
   has_many :line_items, dependent: :restrict_with_error
   has_many :orders, through: :line_items
   has_many :carts, through: :line_items
-  belongs_to :category, counter_cache: true
+  belongs_to :category
   # before_destroy :ensure_not_referenced_by_any_line_item
 
   # callbacks
   before_validation :set_default_title, unless: :title?
   before_validation :set_default_discount_price, unless: :discount_price?
-  after_create_commit :increment_count_in_parent_category, if: :category_id?
-  after_destroy :decrement_count_in_parent_category
-  after_update :decrement_count_in_parent_category, :increment_count_in_parent_category, if: :changed?
+  after_commit :update_products_count_in_category
+  # after_create_commit :increment_count_in_parent_category, if: :category_id?
+  # after_destroy :decrement_count_in_parent_category
+  # after_update :decrement_count_in_parent_category, :increment_count_in_parent_category, if: :changed?
 
   validates :title, presence: true, uniqueness: true
   validates :image_url, presence: true, allow_blank: true, image_url: true
@@ -33,51 +34,39 @@ class Product < ApplicationRecord
 
   private
 
-  def parent_id
-    Category.find(self.category_id).parent_id
-  end
-
-  def parent_id_was
-    Category.find(self.category_id_was).parent_id
-  end
-
-  def decrement_count_in_parent_category
-    if !parent_id_was.nil?
-      Category.decrement_counter(:products_count, parent_id_was)
+    def update_products_count_in_category
+      if previous_changes.present? && category_id_previous_change.first.present?
+        previous_category = Category.find(category_id_previous_change.first)
+        previous_category.recalculate_products_count
+      end
+      category.recalculate_products_count
     end
-  end
 
-  def increment_count_in_parent_category
-    if !parent_id.nil?
-      Category.increment_counter(:products_count, parent_id)
+    def set_default_discount_price
+      self.discount_price = price
     end
-  end
 
-  def set_default_discount_price
-    self.discount_price = price
-  end
-
-  def set_default_title
-    self.title = DEFAULT_TITLE
-  end
-
-  def words_in_description
-    description.scan(/\w+/)
-  end
-
-  def words_in_permalink
-    permalink.scan(/\w+\-?/)
-  end
-
-  def ensure_not_referenced_by_any_line_item
-    unless line_items.empty?
-      errors.add(:base, 'Line Items Present')
+    def set_default_title
+      self.title = DEFAULT_TITLE
     end
-  end
 
-  def validate_price_greater_than_discount
-    if discount_price > price
-      errors.add(:discount_price, "cannot be more than price.")
+    def words_in_description
+      description.scan(/\w+/)
     end
-  end
+
+    def words_in_permalink
+      permalink.scan(/\w+\-?/)
+    end
+
+    def ensure_not_referenced_by_any_line_item
+      unless line_items.empty?
+        errors.add(:base, 'Line Items Present')
+      end
+    end
+
+    def validate_price_greater_than_discount
+      if discount_price > price
+        errors.add(:discount_price, "cannot be more than price.")
+      end
+    end
 end
