@@ -4,7 +4,6 @@ class Category < ApplicationRecord
   # validations
   validates :name, presence: true
   validates :name, uniqueness: { scope: :parent_id }, allow_blank: true
-  validates_uniqueness_of :name, allow_blank: true
 
   # associations
   has_many :products, dependent: :restrict_with_error

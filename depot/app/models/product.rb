@@ -16,9 +16,6 @@ class Product < ApplicationRecord
   before_validation :set_default_title, unless: :title?
   before_validation :set_default_discount_price, unless: :discount_price?
   after_commit :update_products_count_in_category
-  # after_create_commit :increment_count_in_parent_category, if: :category_id?
-  # after_destroy :decrement_count_in_parent_category
-  # after_update :decrement_count_in_parent_category, :increment_count_in_parent_category, if: :changed?
 
   validates :title, presence: true, uniqueness: true
   validates :image_url, presence: true, allow_blank: true, image_url: true
