@@ -12,11 +12,12 @@ class Product < ApplicationRecord
   belongs_to :category, counter_cache: true
   # before_destroy :ensure_not_referenced_by_any_line_item
 
-  # callbacks   before_validation :set_default_title, unless: :title?
+  # callbacks
+  before_validation :set_default_title, unless: :title?
   before_validation :set_default_discount_price, unless: :discount_price?
   after_create_commit :increment_count_in_parent_category, if: :category_id?
   after_destroy :decrement_count_in_parent_category
-  after_update :decrement_count_in_parent_category, if: :changed?
+  after_update :decrement_count_in_parent_category, :increment_count_in_parent_category, if: :changed?
 
   validates :title, presence: true, uniqueness: true
   validates :image_url, presence: true, allow_blank: true, image_url: true
@@ -36,14 +37,13 @@ class Product < ApplicationRecord
     Category.find(self.category_id).parent_id
   end
 
-  def category_changed?
-    debugger
+  def parent_id_was
+    Category.find(self.category_id_was).parent_id
   end
 
   def decrement_count_in_parent_category
-    debugger
-    if !parent_id.nil?
-      Category.decrement_counter(:products_count, parent_id)
+    if !parent_id_was.nil?
+      Category.decrement_counter(:products_count, parent_id_was)
     end
   end
 

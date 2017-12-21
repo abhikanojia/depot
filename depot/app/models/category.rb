@@ -8,7 +8,7 @@ class Category < ApplicationRecord
 
   # associations
   has_many :products, dependent: :restrict_with_error
-  has_many :sub_categories, class_name: 'Category', foreign_key: 'parent_id'
+  has_many :sub_categories, class_name: 'Category', foreign_key: 'parent_id', dependent: :destroy
   belongs_to :parent_category, class_name: 'Category', optional: true
   has_many :sub_category_products, through: :sub_categories, source: :products
 
@@ -24,7 +24,7 @@ class Category < ApplicationRecord
 
     def ensure_no_products_exists
       if !products.empty?
-        errors.add(:base, 'Product exists in this category.')
+        errors.add(:parent_id, 'Product exists in this category.')
         throw :abort
       end
     end
