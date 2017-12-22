@@ -28,6 +28,8 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+    debugger
+    upload
     @product = Product.new(product_params)
 
     respond_to do |format|
@@ -93,5 +95,12 @@ class ProductsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:title, :description, :image_url, :price, :discount_price, :enabled, :permalink, :category_id)
+    end
+
+    def upload
+      uploaded_io = params[:product][:picture]
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
     end
 end

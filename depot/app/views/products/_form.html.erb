@@ -51,6 +51,10 @@
     <%= f.collection_select :category_id, Category.all, :id, :name, prompt: t('.category_prompt') %>
   </div>
 
+  <div class="field">
+    <%= f.file_field :picture %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
