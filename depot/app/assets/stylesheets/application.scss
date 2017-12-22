@@ -64,6 +64,9 @@ body, body > p, body > ol, body > ul, body > td {margin: 8px !important}
     table, th, td, thead, tbody {
       border: 1px solid black;
     }
+    ul.none{
+      list-style-type: none;
+    }
     .panel{
       border: 1px solid black;
       border-radius: 4px;

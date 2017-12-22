@@ -2,15 +2,18 @@ class User < ApplicationRecord
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :name, presence: true, uniqueness: true
   validates :email, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX, multiline: true }
+  validates_associated :address
   has_secure_password
 
   after_destroy :ensure_an_admin_remains
   before_destroy :ensure_not_destroying_admin
   before_update :ensure_not_updating_admin
-  after_create_commit :send_welcome_email
+  # after_create_commit :send_welcome_email
   # associations
   has_many :orders, dependent: :destroy
   has_many :line_items, through: :orders
+  has_one :address, dependent: :destroy
+  accepts_nested_attributes_for :address
 
   class Error < StandardError
   end

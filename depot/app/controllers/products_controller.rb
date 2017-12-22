@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @products, only: :title, include: { category: { only: :name } } }
+    end
   end
 
   # GET /products/1

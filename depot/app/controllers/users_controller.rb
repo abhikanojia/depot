@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   include UserLoggedIn
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :ensure_user_not_destroying_itself, only: :destroy
+  layout 'abhishek', only: [:orders, :line_items]
   # GET /users
   # GET /users.json
   def index
@@ -16,6 +17,7 @@ class UsersController < ApplicationController
   # GET /users/new
   def new
     @user = User.new
+    @user.build_address
   end
 
   # GET /users/1/edit
@@ -84,7 +86,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :email)
+      params.require(:user).permit(:name, :password, :password_confirmation, :email, address_attributes: [:state, :city, :country, :pincode])
     end
 
     def ensure_user_not_destroying_itself
