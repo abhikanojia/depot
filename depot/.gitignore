@@ -27,4 +27,4 @@
 config/*.yml
 
 # uploads
-/public/uploads/*
+/public/images/*
