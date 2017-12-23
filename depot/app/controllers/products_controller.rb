@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  after_action :save_images, only: [:create]
   # GET /products
   # GET /products.json
   def index
@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    3.times { @product.images.build }
   end
 
   # GET /products/1/edit
@@ -28,10 +29,7 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    debugger
-    upload
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -46,6 +44,7 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
+    @product.images.destroy
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
@@ -94,13 +93,16 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :image_url, :price, :discount_price, :enabled, :permalink, :category_id)
+      params.require(:product).permit(:title, :description, :image_url, :price, :discount_price, :enabled, :permalink, :category_id,
+        images_attributes: [:id, :image_name]
+      )
     end
 
-    def upload
-      uploaded_io = params[:product][:picture]
-      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-        file.write(uploaded_io.read)
-      end
+    def save_images
+      debugger
+      # uploaded_io = params[:product][:picture]
+      # File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      #   file.write(uploaded_io.read)
+      # end
     end
 end

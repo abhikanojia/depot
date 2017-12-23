@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   # constants
   PERMALINK_REGEX = /\A[^\s!#$%^&*()（）=+;:'"\[\]\{\}|\\\/<>?,]+\z/i
   DEFAULT_TITLE = 'abc'
+  MAX_IMAGES_ALLOWED = 3
 
   # scopes
   scope :enabled, -> { where(enabled: true) }
@@ -10,6 +11,8 @@ class Product < ApplicationRecord
   has_many :orders, through: :line_items
   has_many :carts, through: :line_items
   belongs_to :category
+  has_many :images, dependent: :destroy
+  accepts_nested_attributes_for :images
   # before_destroy :ensure_not_referenced_by_any_line_item
 
   # callbacks
@@ -27,9 +30,16 @@ class Product < ApplicationRecord
   validates_length_of :words_in_description, minimum: 5, maximum: 10,
     too_short: 'Must have atleast 5 words',
     too_long: 'Must be atmost 10 words'
+  validate :images_count_within_limit, on: [:create]
+  validates_associated :images
   # validates :discount_price, with: :validate_price_greater_than_discount
 
   private
+
+    def images_count_within_limit
+      return if images.blank?
+      errors.add(:images, " must be #{MAX_IMAGES_ALLOWED} in number.") if images.size != MAX_IMAGES_ALLOWED
+    end
 
     def update_products_count_in_category
       if previous_changes.present? && category_id_previous_change.first.present?
