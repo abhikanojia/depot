@@ -25,3 +25,6 @@
 # Configuration files
 
 config/*.yml
+
+# uploads
+public/uploads/*
