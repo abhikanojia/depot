@@ -19,7 +19,6 @@ Slider.prototype.changeImage = function(current) {
     $(_this.sliderItems[nextElement]).fadeIn(_this.speed, function(){
     });
     _this.changeImage(nextElement);
-    _this.updateStatus(nextElement);
   }, this.delay);
 };
 

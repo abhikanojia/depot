@@ -42,7 +42,7 @@ class Product < ApplicationRecord
     end
 
     def update_products_count_in_category
-      if previous_changes.present? && category_id_previous_change.first.present?
+      if previous_changes.key?(:category_id) && category_id_previous_change.first.present?
         previous_category = Category.find(category_id_previous_change.first)
         previous_category.recalculate_products_count
       end

@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   DEFAULT_UPLOAD_PATH = Rails.root.join('public', 'images')
 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  after_action :save_images, only: [:create, :update]
+  after_action :handle_uploaded_images, only: [:create, :update]
   # GET /products
   # GET /products.json
   def index
@@ -104,18 +104,18 @@ class ProductsController < ApplicationController
       Dir.mkdir(DEFAULT_UPLOAD_PATH) unless File.directory?(DEFAULT_UPLOAD_PATH)
     end
 
-    def save_images
+    def handle_uploaded_images
       if @product.valid?
         create_directory_if_not_exist
-        images = product_params[:images_attributes]
-        images.each_pair do |_, value|
-          image_object = value[:image_name]
-          save_to_uploads(image_object)
+        product_params[:images_attributes].each_pair do |_, value|
+          if value.key?(:image_name)
+            save_to_images(value[:image_name])
+          end
         end
       end
     end
 
-    def save_to_uploads(image_object)
+    def save_to_images(image_object)
       File.open(DEFAULT_UPLOAD_PATH.join(image_object.original_filename), 'wb') do |file|
         file.write(image_object.read)
       end
