@@ -45,8 +45,8 @@
     <ul class="none">
       <%= f.fields_for :images do |image_form| %>
         <li>
-          <%= image_form.label :image_name %>
-          <%= image_form.file_field :image_name %>
+          <%= image_form.label :image %>
+          <%= image_form.file_field :image %>
         </li>
       <% end %>
     </ul>

@@ -1,8 +1,5 @@
 class ProductsController < ApplicationController
-  DEFAULT_UPLOAD_PATH = Rails.root.join('public', 'images')
-
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  after_action :handle_uploaded_images, only: [:create, :update]
   # GET /products
   # GET /products.json
   def index
@@ -34,9 +31,15 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     respond_to do |format|
       if @product.save
+        if params[:product].key?(:images_attributes)
+          params[:product][:images_attributes].values.each do |image|
+            @product.images.create(uploaded_file: image)
+          end
+        end
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
+        3.times { @product.images.build }
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
@@ -46,9 +49,12 @@ class ProductsController < ApplicationController
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json
   def update
-    @product.images.destroy
     respond_to do |format|
       if @product.update(product_params)
+        debugger
+        params[:product][:images_attributes].values.each do |image|
+          # @product.images.update(uploaded_file: image) if image.key?(:image)
+        end
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
         @products = Product.all
@@ -95,29 +101,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :image_url, :price, :discount_price, :enabled, :permalink, :category_id,
-        images_attributes: [:id, :image_name]
-      )
-    end
-
-    def create_directory_if_not_exist
-      Dir.mkdir(DEFAULT_UPLOAD_PATH) unless File.directory?(DEFAULT_UPLOAD_PATH)
-    end
-
-    def handle_uploaded_images
-      if @product.valid?
-        create_directory_if_not_exist
-        product_params[:images_attributes].each_pair do |_, value|
-          if value.key?(:image_name)
-            save_to_images(value[:image_name])
-          end
-        end
-      end
-    end
-
-    def save_to_images(image_object)
-      File.open(DEFAULT_UPLOAD_PATH.join(image_object.original_filename), 'wb') do |file|
-        file.write(image_object.read)
-      end
+      params.require(:product).permit(:title, :description, :image_url, :price, :discount_price, :enabled, :permalink, :category_id)
     end
 end
