@@ -10,6 +10,7 @@ class Image < ApplicationRecord
 
   after_create_commit :save_image
   after_destroy :delete_respective_image
+  after_update :save_image, on: :commit
 
   # associations
   belongs_to :product, optional: true
@@ -34,10 +35,6 @@ class Image < ApplicationRecord
 
     def get_directory_path_for_product
       DEFAULT_UPLOAD_PATH.join(product_id.to_s)
-    end
-
-    def uploaded_file_has_image?
-      uploaded_file.key? :image
     end
 
     def image

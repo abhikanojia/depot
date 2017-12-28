@@ -51,9 +51,8 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        debugger
         params[:product][:images_attributes].values.each do |image|
-          @product.images.update(uploaded_file: image) if image.key?(:image)
+          Image.find(image[:id]).update(uploaded_file: image) if image.key?(:image)
         end
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
