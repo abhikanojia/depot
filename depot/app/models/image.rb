@@ -3,21 +3,25 @@ class Image < ApplicationRecord
 
   # constants
   DEFAULT_UPLOAD_PATH = Rails.root.join('public', 'images')
-  MAX_IMAGES_ALLOWED = 3
+
+  # validations
+  validates_with ImageCountValidator
 
   # callbacks
-  before_save :image_count_within_limit, :set_image_details
+  before_save :set_image_details
   before_create :create_directory_if_not_exist
 
   after_save :save_image
   after_destroy :delete_respective_image
 
+  after_rollback :remove_directory_if_empty
+
   # associations
-  belongs_to :product, optional: true
+  belongs_to :product
 
   def set_image_details
     self.filename = image.original_filename
-    self.filepath = "#{product_id}/".concat(image.original_filename)
+    self.filepath = "#{product_id}/".concat(filename)
   end
 
   def create_directory_if_not_exist
@@ -33,10 +37,6 @@ class Image < ApplicationRecord
 
   private
 
-    def image_count_within_limit
-      errors.add(:image, " must be #{MAX_IMAGES_ALLOWED} in number.") if product.images.count == MAX_IMAGES_ALLOWED
-    end
-
     def get_directory_path_for_product
       DEFAULT_UPLOAD_PATH.join(product_id.to_s)
     end
@@ -45,8 +45,12 @@ class Image < ApplicationRecord
       uploaded_file[:image]
     end
 
-    def delete_respective_image
+    def remove_directory_if_empty
       Dir.rmdir(get_directory_path_for_product) if Dir.empty?(get_directory_path_for_product)
+    end
+
+    def delete_respective_image
       File.delete(DEFAULT_UPLOAD_PATH.join(filepath)) if File.exist?(DEFAULT_UPLOAD_PATH.join(filepath))
+      remove_directory_if_empty
     end
 end

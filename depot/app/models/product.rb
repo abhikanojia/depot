@@ -33,11 +33,6 @@ class Product < ApplicationRecord
 
   private
 
-    def images_count_within_limit
-      return if images.blank?
-      errors.add(:images, " must be #{MAX_IMAGES_ALLOWED} in number.") if images.size != MAX_IMAGES_ALLOWED
-    end
-
     def update_products_count_in_category
       if previous_changes.key?(:category_id) && category_id_previous_change.first.present?
         previous_category = Category.find(category_id_previous_change.first)

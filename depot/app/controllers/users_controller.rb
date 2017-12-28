@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include UserLoggedIn
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :ensure_user_not_destroying_itself, only: :destroy
-  layout 'my_profile', only: [:orders, :line_items]
+  layout 'admin', only: [:orders, :line_items]
   # GET /users
   # GET /users.json
   def index
