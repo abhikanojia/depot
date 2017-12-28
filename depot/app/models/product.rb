@@ -2,7 +2,6 @@ class Product < ApplicationRecord
   # constants
   PERMALINK_REGEX = /\A[^\s!#$%^&*()（）=+;:'"\[\]\{\}|\\\/<>?,]+\z/i
   DEFAULT_TITLE = 'abc'
-  MAX_IMAGES_ALLOWED = 3
 
   # scopes
   scope :enabled, -> { where(enabled: true) }
@@ -30,8 +29,6 @@ class Product < ApplicationRecord
   validates_length_of :words_in_description, minimum: 5, maximum: 10,
     too_short: 'Must have atleast 5 words',
     too_long: 'Must be atmost 10 words'
-  validate :images_count_within_limit, on: [:create]
-  validates_associated :images
   # validates :discount_price, with: :validate_price_greater_than_discount
 
   private

@@ -3,14 +3,14 @@ class Image < ApplicationRecord
 
   # constants
   DEFAULT_UPLOAD_PATH = Rails.root.join('public', 'images')
+  MAX_IMAGES_ALLOWED = 3
 
   # callbacks
-  before_create :set_image_details, :create_directory_if_not_exist
-  before_update :set_image_details
+  before_save :image_count_within_limit, :set_image_details
+  before_create :create_directory_if_not_exist
 
-  after_create_commit :save_image
+  after_save :save_image
   after_destroy :delete_respective_image
-  after_update :save_image, on: :commit
 
   # associations
   belongs_to :product, optional: true
@@ -32,6 +32,10 @@ class Image < ApplicationRecord
   end
 
   private
+
+    def image_count_within_limit
+      errors.add(:image, " must be #{MAX_IMAGES_ALLOWED} in number.") if product.images.count == MAX_IMAGES_ALLOWED
+    end
 
     def get_directory_path_for_product
       DEFAULT_UPLOAD_PATH.join(product_id.to_s)
