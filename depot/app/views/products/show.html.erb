@@ -1,24 +1,27 @@
 <%= render partial: 'shared/error', locals: { object: @product } %>
 <%= render partial: 'shared/flash' %>
-<p>
-  <strong>Title:</strong>
-  <%= @product.title %>
-</p>
+<%= render partial: 'slider' %>
+<div class="product-details">
+  <p>
+    <strong>Title:</strong>
+    <%= @product.title %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+  <p>
+    <strong>Description:</strong>
+    <%= @product.description %>
+  </p>
 
-<p>
-  <strong>Image url:</strong>
-  <%= @product.image_url %>
-</p>
+  <p>
+    <strong>Image url:</strong>
+    <%= @product.image_url %>
+  </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+  <p>
+    <strong>Price:</strong>
+    <%= @product.price %>
+  </p>
+</div>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

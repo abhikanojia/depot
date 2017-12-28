@@ -1,10 +1,13 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
   # GET /products
   # GET /products.json
   def index
     @products = Product.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @products, only: :title, include: { category: { only: :name } } }
+    end
   end
 
   # GET /products/1
@@ -15,6 +18,7 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
+    3.times { @product.images.build }
   end
 
   # GET /products/1/edit
@@ -25,12 +29,17 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
+        if params[:product].key?(:images_attributes)
+          params[:product][:images_attributes].values.each do |image|
+            @product.images.create(uploaded_file: image)
+          end
+        end
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
+        3.times { @product.images.build }
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
@@ -42,6 +51,9 @@ class ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
+        params[:product][:images_attributes].values.each do |image|
+          Image.find(image[:id]).update(uploaded_file: image) if image.key?(:image)
+        end
         format.html { redirect_to @product, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
         @products = Product.all

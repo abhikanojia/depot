@@ -1,0 +1,7 @@
+<ul id="slideshow" data-slider="slideshow">
+  <% if @product.images.present? %>
+    <% @product.images.each do |image| %>
+      <li><%= image_tag(image.filepath) %></li>
+    <% end %>
+  <% end %>
+</ul>

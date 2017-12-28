@@ -10,6 +10,8 @@ class Product < ApplicationRecord
   has_many :orders, through: :line_items
   has_many :carts, through: :line_items
   belongs_to :category
+  has_many :images, dependent: :destroy
+  accepts_nested_attributes_for :images
   # before_destroy :ensure_not_referenced_by_any_line_item
 
   # callbacks
@@ -32,7 +34,7 @@ class Product < ApplicationRecord
   private
 
     def update_products_count_in_category
-      if previous_changes.present? && category_id_previous_change.first.present?
+      if previous_changes.key?(:category_id) && category_id_previous_change.first.present?
         previous_category = Category.find(category_id_previous_change.first)
         previous_category.recalculate_products_count
       end

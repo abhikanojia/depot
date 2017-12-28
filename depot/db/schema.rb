@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220115549) do
+ActiveRecord::Schema.define(version: 20171226094402) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "state"
+    t.string   "city"
+    t.string   "country"
+    t.integer  "pincode"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at",                   null: false
@@ -25,6 +36,15 @@ ActiveRecord::Schema.define(version: 20171220115549) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["parent_id"], name: "index_categories_on_parent_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string   "filename"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "filepath"
+    t.index ["product_id"], name: "index_images_on_product_id"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -67,9 +87,10 @@ ActiveRecord::Schema.define(version: 20171220115549) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "email"
+    t.string   "role",            default: "user"
   end
 
 end

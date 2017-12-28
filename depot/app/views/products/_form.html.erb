@@ -1,16 +1,5 @@
 <%= form_for(product) do |f| %>
-  <% if product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
-      <ul>
-      <% product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+  <%= render partial: 'shared/error', locals: { object: product } %>
   <div class="field">
     <%= f.label :title %>
     <%= f.text_field :title %>
@@ -49,6 +38,18 @@
   <div class="field">
     <%= f.label :category_id %>
     <%= f.collection_select :category_id, Category.all, :id, :name, prompt: t('.category_prompt') %>
+  </div>
+
+  <div class="field">
+    Images:
+    <ul class="none">
+      <%= f.fields_for :images do |image_form| %>
+        <li>
+          <%= image_form.label :image %>
+          <%= image_form.file_field :image %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
   <div class="actions">
