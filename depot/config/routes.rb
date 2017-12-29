@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
-    get 'reports/' => 'reports#index'
-    get 'categories/' => 'categories#index'
+    get 'reports' => 'reports#index'
+    get 'categories' => 'categories#index'
   end
 
   get 'admin' => 'admin#index'

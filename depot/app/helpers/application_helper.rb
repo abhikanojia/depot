@@ -16,7 +16,7 @@ module ApplicationHelper
     session.key? :user_id
   end
 
-  def hit_counter
+  def pageviews
     session[request.path] if user_logged_in?
   end
 end
