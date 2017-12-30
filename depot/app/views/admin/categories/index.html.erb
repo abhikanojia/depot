@@ -8,7 +8,7 @@
   </tr>
     <% @categories.each do |category| %>
       <tr>
-        <td><%= category.name %></td>
+        <td><%= link_to(category.name, admin_category_books_path(category)) %></td>
         <td>
           <% if category.parent.present? %>
             <%= category.parent.name %>

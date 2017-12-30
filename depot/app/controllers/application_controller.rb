@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include UserLoggedIn
   include AutoSessionTimeout
 
-  auto_session_timeout 5.minute
+  auto_session_timeout
 
   before_action :set_i18n_locale_from_params
   protect_from_forgery with: :exception
