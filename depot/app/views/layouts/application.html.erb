@@ -34,7 +34,7 @@
           <li><a href="http://www..../faq"><%= t('.questions') %></a></li>
           <li><a href="http://www..../news"><%= t('.news') %></a></li>
           <li><a href="http://www..../contact"><%= t('.contact') %></a></li>
-          <li><a>Time: <%= Time.now.strftime("%I:%M%p") %></a></li>
+          <li><a><%= t('.time') %> <%= Time.now.strftime("%I:%M%p") %></a></li>
         </ul>
         <% if current_user %>
           <ul>
