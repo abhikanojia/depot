@@ -1,46 +1,46 @@
 <div class="depot_form">
   <fieldset>
-    <legend>Enter User Details</legend>
+    <legend><%= t('.legend') %></legend>
     <%= form_for(user) do |f| %>
       <%= render partial: 'shared/error', locals: { object: user } %>
       <div class="field">
-        <%= f.label :name %>
+        <%= f.label :name, t('.name') %>
         <%= f.text_field :name, size: 40 %>
       </div>
 
        <div class="field">
-        <%= f.label :email %>
+        <%= f.label :email, t('.email') %>
         <%= f.email_field :email %>
       </div>
 
       <div class="field">
-        <%= f.label :password, 'Password' %>
+        <%= f.label :password, t('.password') %>
         <%= f.password_field :password, size: 40 %>
       </div>
 
       <div class="field">
-        <%= f.label :password_confirmation, 'Confirm' %>
+        <%= f.label :password_confirmation, t('.confirm') %>
         <%= f.password_field :password_confirmation, size: 40 %>
       </div>
 
       <div class="field">
-         Address:
+         <%= t('.address') %>
         <ul class="none">
           <%= f.fields_for :address do |address_form| %>
             <li>
-              <%= address_form.label :state %>
+              <%= address_form.label :state, t('.state') %>
               <%= address_form.text_field :state %>
             </li>
             <li>
-              <%= address_form.label :city %>
+              <%= address_form.label :city, t('.city') %>
               <%= address_form.text_field :city %>
             </li>
             <li>
-              <%= address_form.label :country %>
+              <%= address_form.label :country, t('.country') %>
               <%= address_form.text_field :country %>
             </li>
             <li>
-              <%= address_form.label :pincode %>
+              <%= address_form.label :pincode, t('.pincode') %>
               <%= address_form.number_field :pincode, size: 6 %>
             </li>
           <% end %>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit %>
+        <%= f.submit t('.submit') %>
       </div>
     <% end %>
   </fieldset>

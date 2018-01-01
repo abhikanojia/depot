@@ -1,4 +1,27 @@
-Dear <%= @order.name %>
-Thank you for your recent order from The Pragmatic Store.
-You ordered the following items:
-We'll send you a separate e-mail when your order ships.
+<%= t('.greeting', name: @order.name) %>
+<%= t('.order_received') %> <br>
+<%= t('.following_items') %>: <br>
+<br>
+
+<table border="1px">
+  <tr>
+    <th><%= t('.image') %></th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.quantity') %></th>
+    <th><%= t('.price') %></th>
+  </tr>
+  <% @order.line_items.each do |line_item| %>
+    <tr>
+      <td>
+        <%= image_tag(attachments[line_item.product.images.first.filename.to_s].url) %>
+      </td>
+      <td><%= line_item.product.title %></td>
+      <td><%= line_item.quantity %>&times;</td>
+      <td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="3"><%= t('.total') %> </td>
+    <td><%= number_to_currency(@order.gross_total) %></td>
+  </tr>
+</table>

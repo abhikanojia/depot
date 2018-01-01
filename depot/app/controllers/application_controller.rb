@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
 
   auto_session_timeout
 
-  before_action :set_i18n_locale_from_params
+  before_action :set_i18n_locale_from_params, if: '!user_logged_in?'
+  before_action :set_i18n_locale_from_user_preference, if: :user_logged_in?
   protect_from_forgery with: :exception
   before_action :authorize
   around_action :append_response_time_in_header
@@ -13,8 +14,12 @@ class ApplicationController < ActionController::Base
   protected
     def authorize
       unless User.find_by(id: session[:user_id])
-        redirect_to login_url, notice: "Please log in"
+        redirect_to login_url, notice: t('.login')
       end
+    end
+
+    def set_i18n_locale_from_user_preference
+      I18n.locale = current_user.language_preference
     end
 
     def set_i18n_locale_from_params
