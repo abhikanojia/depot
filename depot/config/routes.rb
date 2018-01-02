@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'my-items' => 'users#line_items'
 
   resources :users
+  resources :ratings, only: :update
 
   scope '(:locale)' do
     resources :orders

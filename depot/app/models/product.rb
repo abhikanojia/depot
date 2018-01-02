@@ -11,6 +11,7 @@ class Product < ApplicationRecord
   has_many :carts, through: :line_items
   belongs_to :category
   has_many :images, dependent: :destroy
+  has_many :ratings
   accepts_nested_attributes_for :images
   # before_destroy :ensure_not_referenced_by_any_line_item
 

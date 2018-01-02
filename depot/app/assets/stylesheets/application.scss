@@ -75,6 +75,9 @@ body, body > p, body > ol, body > ul, body > td {margin: 8px !important}
     ul.none{
       list-style-type: none;
     }
+    .ratings{
+      float: right;
+    }
     .panel{
       border: 1px solid black;
       border-radius: 4px;

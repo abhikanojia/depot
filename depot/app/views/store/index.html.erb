@@ -4,6 +4,9 @@
   <% @products.each do |product| %>
     <% cache product do %>
       <div class="entry">
+        <%= form_for :rating, html:{ class: 'ratings'} do |form|%>
+          <%= form.select "Ratings", options_for_select((0..5).step(0.5), "Select Ratings") %>
+        <% end %>
         <%= image_tag(product.image_url) %>
         <h3><%= product.title %></h3>
         <%= sanitize(product.description) %>
