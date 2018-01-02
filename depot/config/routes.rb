@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'reports' => 'reports#index'
     get 'categories' => 'categories#index'
     get 'categories/:id/books' => 'categories#products', as: :category_books, id: '/\d/'
+    get 'categories/:id/books', to: redirect('/')
   end
 
   get 'admin' => 'admin#index'
