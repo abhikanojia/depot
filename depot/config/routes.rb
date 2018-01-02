@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     match '*path', to: redirect('404'), via: :all
   end
 
+  get 'admin' => 'admin#index'
+
   namespace :admin do
     get 'reports' => 'reports#index'
     get 'categories' => 'categories#index'
@@ -11,7 +13,6 @@ Rails.application.routes.draw do
     get 'categories/:id/books', to: redirect('/')
   end
 
-  get 'admin' => 'admin#index'
 
   controller :sessions do
     get 'login' => :new

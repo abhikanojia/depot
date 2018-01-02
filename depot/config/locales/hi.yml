@@ -119,9 +119,6 @@ hi:
           attributes:
             name:
               inclusion: 'सूची में शामिल नहीं है'
-        user:
-          attributes:
-            name: 'Naam'
       messages:
         blank: 'रिक्त नहीं हो सकता'
         taken: 'पहले से ही लिया गया है'
@@ -144,3 +141,14 @@ hi:
       image: 'छवि'
       total: 'कुल कीमत'
       following_items: 'आपने निम्नलिखित मदों का आदेश दिया'
+  user_mailer:
+    consolidate_orders:
+      subject: 'संयुक्त आदेश'
+      greeting: "नमस्ते %{name}"
+      name: 'नाम'
+      price: 'मूल्य'
+      total: 'कुल कीमत'
+      quantity: 'मात्रा'
+      total_expenditure: 'कुल खर्च'
+      following_items: 'आपने निम्नलिखित मदों का आदेश दिया'
+      date: 'दिनांक'

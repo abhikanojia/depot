@@ -56,6 +56,7 @@ en:
   orders:
     new:
       legend: "Please enter your details"
+      login: 'Please log In'
     form:
       name: "Name"
       address_html: "Address"
@@ -68,3 +69,24 @@ en:
   products:
     form:
       category_prompt: "Select One"
+  sessions:
+    destroy:
+      notice: 'Logged Out Successfully.'
+    create:
+      alert: 'Invalid Login Id password combination.'
+    new:
+      legend: 'Please Log In'
+      name: 'Name'
+      password: 'Password'
+      submit: 'Login'
+  user_mailer:
+    consolidate_orders:
+      subject: 'Consolidated Orders'
+      greeting: "Hi %{name}"
+      name: 'Name'
+      price: 'Price'
+      total: 'Total Amount'
+      quantity: 'Quantity'
+      total_expenditure: 'Total Amount Spent'
+      following_items: 'You have ordered following items:'
+      date: 'Date'

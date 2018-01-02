@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 20171231183734) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.boolean  "enabled",                                default: false
-    t.string   "permalink"
     t.decimal  "discount_price"
+    t.string   "permalink"
     t.integer  "category_id"
     t.index ["category_id"], name: "index_products_on_category_id"
   end

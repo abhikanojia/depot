@@ -1,0 +1,24 @@
+<%= t('.greeting', name: @user.name) %>,
+<%= t('.following_items') %>: <br>
+<table border="1px">
+  <tr>
+    <th><%= t('.name') %></th>
+    <th><%= t('.price') %></th>
+    <th><%= t('.quantity') %></th>
+    <th><%= t('.date') %></th>
+    <th><%= t('.total') %></th>
+  </tr>
+  <% @line_items.each do |line_item| %>
+    <tr>
+      <td><%= line_item.product.title %></td>
+      <td><%= line_item.product.price %></td>
+      <td><%= line_item.quantity %></td>
+      <td><%= line_item.created_at.strftime('%d/%m/%Y') %></td>
+      <td><%= number_to_currency(line_item.total_price) %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td colspan="4"><%= t('.total_expenditure') %></td>
+    <td><%= number_to_currency(@user.total_expenditure) %></td>
+  </tr>
+</table>
