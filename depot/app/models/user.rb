@@ -18,6 +18,10 @@ class User < ApplicationRecord
   class Error < StandardError
   end
 
+  def total_expenditure
+    orders.inject(0) { |sum, order| sum += order.gross_total }
+  end
+
   private
     def ensure_an_admin_remains
       if User.count.zero?
