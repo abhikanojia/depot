@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get 'my-items' => 'users#line_items'
 
   resources :users
-  resources :ratings, only: :update
+  resources :ratings, only: :update, defaults: { format: 'json' }
 
   scope '(:locale)' do
     resources :orders

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102122724) do
+ActiveRecord::Schema.define(version: 20180103122627) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "state"
@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 20180102122724) do
   create_table "ratings", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "user_id"
-    t.integer  "score",      default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.decimal  "score",      precision: 1, scale: 1, default: "0.0"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.index ["product_id"], name: "index_ratings_on_product_id"
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end

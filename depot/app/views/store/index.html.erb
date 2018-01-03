@@ -4,8 +4,12 @@
   <% @products.each do |product| %>
     <% cache product do %>
       <div class="entry">
-        <%= form_for :rating, html:{ class: 'ratings'} do |form|%>
-          <%= form.select "Ratings", options_for_select((0..5).step(0.5), "Select Ratings") %>
+        <% if user_logged_in? %>
+          <%= form_for :ratings, url: rating_path(product) ,method: :patch, html: { class: 'ratings' } do |rating_form| %>
+            <%= rating_form.select :score, options_for_select((0..5).step(0.5)) %>
+            <%= hidden_field_tag('product_id', product.id) %>
+            <%= rating_form.submit 'Rate It', class: 'submit-ratings' %>
+          <% end %>
         <% end %>
         <%= image_tag(product.image_url) %>
         <h3><%= product.title %></h3>
@@ -14,6 +18,8 @@
           <span class="price"><%= number_to_currency(product.price) %></span>
           <%= button_to t('.addtocart'), line_items_path(product_id: product, locale: I18n.locale), remote: true %>
         </div>
+        <br>
+        <h4>Ratings: <span><%= average_rating(product) %></span></h4>
       </div>
     <% end %>
   <% end %>

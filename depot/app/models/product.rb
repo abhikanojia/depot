@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   has_many :carts, through: :line_items
   belongs_to :category
   has_many :images, dependent: :destroy
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   accepts_nested_attributes_for :images
   # before_destroy :ensure_not_referenced_by_any_line_item
 
@@ -31,6 +31,11 @@ class Product < ApplicationRecord
     too_short: 'Must have atleast 5 words',
     too_long: 'Must be atmost 10 words'
   # validates :discount_price, with: :validate_price_greater_than_discount
+
+  def average_rating
+    return (ratings.sum(:score) / ratings.size).to_f if ratings.present?
+    0
+  end
 
   private
 
