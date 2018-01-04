@@ -12,14 +12,14 @@ class Admin::ReportsController < Admin::BaseController
     end
 
     def from_date_param
-      unless filter_params.key?(:from)
+      unless filter_params.key?(:from) && filter_params[:from].present?
         return 5.days.ago.beginning_of_day
       end
       filter_params[:from].to_time.beginning_of_day
     end
 
     def to_date_param
-      unless filter_params.key?(:to)
+      unless filter_params.key?(:to) && filter_params[:to].present?
         return Time.now
       end
       filter_params[:to].to_time.end_of_day
