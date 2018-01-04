@@ -1,0 +1,10 @@
+<%= form_tag admin_reports_path, method: :get %>
+<%= label_tag 'from:', 'From Date: ' %>
+<%= date_field_tag 'from', @from.to_date %>
+
+<%= label_tag 'to:', 'To Date: ' %>
+<%= date_field_tag 'to', @to.to_date %>
+
+<%= submit_tag "Apply" %>
+<br>
+<br>

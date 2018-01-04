@@ -1,0 +1,154 @@
+hi:
+  layouts:
+    application:
+      title: "व्यावहारिक बुकहेल्फ़"
+      home: "होम"
+      questions: "प्रशन"
+      news: "समाचार"
+      login: "लॉग इन करें"
+      logout: "साइन आउट"
+      orders: "आर्डर"
+      products: "प्रोडक्ट्स"
+      users: "उसेर्स"
+      edit_profile: "प्रोफाइल एडिट करें"
+      contact: "संपर्क करें"
+      time: 'समय'
+  store:
+    index:
+      addtocart: "कार्ट में डालें"
+      heading: "आपका व्यावहारिक कैटलॉग"
+  carts:
+    cart:
+      title: "आपकी कार्ट "
+      empty: "कार्ट खाली करें"
+      checkout: "चेक आउट"
+  number:
+    currency:
+      format:
+        unit: "₹"
+        precision: 2
+        separator: "."
+        delimiter: ","
+        format: "%u%n"
+  line_items:
+    line_item:
+        remove: "हटाएँ"
+  orders:
+    new:
+      legend: "कृपया अपना विवरण दर्ज करें"
+      login: 'कृपया लॉगिन करें'
+    form:
+      name: "नाम"
+      address_html: "पता"
+      email: "ई-मेल"
+      pay_type: "भुगतान प्रकार"
+      pay_prompt_html: "भुगतान का तरीका चुनें"
+      submit: "आर्डर करें"
+    create:
+      notice: 'उत्पाद सफलतापूर्वक बनाया गया था।'
+      thanks: 'आपके क्रय आदेश के लिए धन्यवाद'
+  products:
+    new:
+      h1: 'नया उत्पाद'
+    form:
+      title: 'शीर्षक'
+      description: 'विवरण'
+      price: 'मूल्य'
+      enabled: 'सक्षम'
+      discount_price: 'डिस्काउंट कीमत'
+      permalink: 'स्थायी लिंक'
+      submit: 'जमा करें'
+      category_prompt: "एक चुनें"
+      category: 'वर्ग'
+      image: 'प्रतिकृति'
+    show:
+      title: 'शीर्षक'
+      description: 'विवरण'
+      price: 'मूल्य'
+      edit: 'संपादित करें'
+      back: 'वापस'
+    create:
+      notice: 'उत्पाद सफलतापूर्वक बनाया गया था।'
+    destroy:
+      notice: 'उत्पाद सफलतापूर्वक नष्ट कर दिया गया।'
+    update:
+      notice: 'उत्पाद सफलतापूर्वक अपडेट किया गया था।'
+  users:
+    new:
+      h1: 'नया उपयोगकर्ता'
+    form:
+      legend: 'उपयोगकर्ता विवरण दर्ज करें'
+      name: 'नाम'
+      state: 'राज्य'
+      city: 'शहर'
+      country: 'देश'
+      pincode: 'पिन कोड'
+      email: 'ईमेल'
+      password: 'पारण शब्द'
+      confirm: 'पासवर्ड की पुष्टि कीजिये'
+      submit: 'उपयोगकर्ता बनाइये'
+  sessions:
+    destroy:
+      notice: 'सफलतापूर्वक लॉग आउट किया गया'
+    create:
+      alert: 'अवैध उपभोगकर्ता नाम गुप्तलब्ज सयोंजन'
+    new:
+      legend: 'कृपया लॉगिन करें'
+      name: 'नाम'
+      password: 'पारण शब्द'
+      submit: 'लॉग इन करें'
+  activerecord:
+    errors:
+      models:
+        product:
+          attributes:
+            description:
+              invalid: 'में केवल 5 से 10 शब्द हो सकते हैं'
+              blank: 'खाली है'
+            category:
+              required: 'अपेक्षित'
+            title:
+              taken: 'का उपयोग नहीं किया जा सकता। यह पहले से ही एक उप-श्रेणी का नाम है'
+            permalink:
+              invalid: 'अमान्य है'
+        category:
+          attributes:
+            title:
+              taken: 'का उपयोग नहीं किया जा सकता। यह पहले से ही एक उप-श्रेणी का नाम है'
+        order:
+          attributes:
+            name:
+              inclusion: 'सूची में शामिल नहीं है'
+      messages:
+        blank: 'रिक्त नहीं हो सकता'
+        taken: 'पहले से ही लिया गया है'
+        greater_than_or_equal_to: '%{count} या अधिक के बराबर होना चाहिए'
+        inclusion: 'सूची में शामिल नहीं है'
+        invalid: 'अमान्य है'
+        not_an_integer: 'एक पूर्णांक नहीं है'
+    error:
+      body: "निम्नलिखित समस्या हुई:"
+      header:
+        one: "1 त्रुटि के कारण आर्डर सेव करने में बाधा आयी"
+        other: "%{count} त्रुटियों के कारण आर्डर सेव करने में बाधा आयी "
+  order_mailer:
+    received:
+      order_received: 'हमने आपका ऑर्डर प्राप्त कर लिया है और हम इसे जल्द ही भेज देंगे।'
+      greeting: "नमस्ते %{name}"
+      name: 'नाम'
+      price: 'मूल्य'
+      quantity: 'मात्रा'
+      image: 'छवि'
+      total: 'कुल कीमत'
+      following_items: 'आपने निम्नलिखित मदों का आदेश दिया'
+  user_mailer:
+    consolidate_orders:
+      subject: 'संयुक्त आदेश'
+      greeting: "नमस्ते %{name}"
+      name: 'नाम'
+      price: 'मूल्य'
+      total: 'कुल कीमत'
+      quantity: 'मात्रा'
+      total_expenditure: 'कुल खर्च'
+      following_items: 'आपने निम्नलिखित मदों का आदेश दिया'
+      date: 'दिनांक'

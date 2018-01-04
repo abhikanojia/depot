@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
+  constraints user_agent: /Firefox/ do
+    root 'store#index', via: :all
+    match '*path', to: redirect('404'), via: :all
+  end
+
   get 'admin' => 'admin#index'
+
+  namespace :admin do
+    get 'reports' => 'reports#index'
+    get 'categories' => 'categories#index'
+    get 'categories/:id/books' => 'categories#products', as: :category_books, id: '/\d/'
+    get 'categories/:id/books', to: redirect('/')
+  end
+
 
   controller :sessions do
     get 'login' => :new
@@ -7,16 +20,17 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
-  get '/users/orders' => 'users#orders'
-  get '/users/line_items' => 'users#line_items'
+  get 'my-orders' => 'users#orders'
+  get 'my-items' => 'users#line_items'
 
   resources :users
+  resources :ratings, only: :update, defaults: { format: 'json' }
 
   scope '(:locale)' do
     resources :orders
     resources :line_items
     resources :carts
-    resources :products
+    resources :products, path: 'books'
     resources :categories
     root 'store#index', as: 'store_index', via: :all
   end

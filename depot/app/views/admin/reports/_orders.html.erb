@@ -1,0 +1,19 @@
+<h3>No. of Orders: <%= @orders.count %></h3>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Address</th>
+    <th>Email</th>
+    <th>Paytype</th>
+    <th>Order date (dd-mm-YYYY)</th>
+  </tr>
+  <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.name %></td>
+      <td><%= order.address %></td>
+      <td><%= order.email %></td>
+      <td><%= order.pay_type %></td>
+      <td><%= order.created_at.strftime("%d-%m-%Y") %></td>
+    </tr>
+  <% end %>
+</table>

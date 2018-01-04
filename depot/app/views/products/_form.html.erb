@@ -1,12 +1,12 @@
 <%= form_for(product) do |f| %>
   <%= render partial: 'shared/error', locals: { object: product } %>
   <div class="field">
-    <%= f.label :title %>
+  <%= f.label :title, t('.title') %>
     <%= f.text_field :title %>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
+    <%= f.label :description, t('.description') %>
     <%= f.text_area :description, rows: 10, cols: 50 %>
   </div>
 
@@ -16,27 +16,27 @@
   </div>
 
   <div class="field">
-    <%= f.label :price %>
+    <%= f.label :price, t('.price') %>
     <%= f.text_field :price %>
   </div>
 
   <div class="field">
-    <%= f.label :enabled %>
+    <%= f.label :enabled, t('.enabled') %>
     <%= f.check_box :enabled %>
   </div>
 
   <div class="field">
-    <%= f.label :discount_price %>
+    <%= f.label :discount_price, t('.discount_price') %>
     <%= f.text_field :discount_price %>
   </div>
 
   <div class="field">
-    <%= f.label :permalink %>
+    <%= f.label :permalink, t('.permalink') %>
     <%= f.text_field :permalink %>
   </div>
 
   <div class="field">
-    <%= f.label :category_id %>
+    <%= f.label :category_id, t('.category') %>
     <%= f.collection_select :category_id, Category.all, :id, :name, prompt: t('.category_prompt') %>
   </div>
 
@@ -45,7 +45,7 @@
     <ul class="none">
       <%= f.fields_for :images do |image_form| %>
         <li>
-          <%= image_form.label :image %>
+          <%= image_form.label :image, t('.image') %>
           <%= image_form.file_field :image %>
         </li>
       <% end %>
@@ -53,6 +53,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t('.submit') %>
   </div>
 <% end %>

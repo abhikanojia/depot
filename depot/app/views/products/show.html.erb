@@ -3,12 +3,12 @@
 <%= render partial: 'slider' %>
 <div class="product-details">
   <p>
-    <strong>Title:</strong>
+    <strong><%= t('.title') %></strong>
     <%= @product.title %>
   </p>
 
   <p>
-    <strong>Description:</strong>
+    <strong><%= t('.description') %></strong>
     <%= @product.description %>
   </p>
 
@@ -18,10 +18,10 @@
   </p>
 
   <p>
-    <strong>Price:</strong>
+    <strong><%= t('.price') %></strong>
     <%= @product.price %>
   </p>
 </div>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<%= link_to t('.edit'), edit_product_path(@product) %> |
+<%= link_to t('.back'), products_path %>
