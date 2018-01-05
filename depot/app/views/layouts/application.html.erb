@@ -52,5 +52,11 @@
         <%= yield %>
       </div>
     </div>
+    <footer>
+      <h4>Your IP Address is : <%= request.remote_ip %></h4>
+      <% if user_logged_in? %>
+        <h4>Hit Counter: <%= pageviews %></h4>
+      <% end %>
+    </footer>
   </body>
 </html>
