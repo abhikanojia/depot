@@ -1,27 +1,24 @@
 class Admin::ReportsController < Admin::BaseController
+  DEFAULT_START = 5
   def index
-    @from =  from_date_param
-    @to =  to_date_param
-    @orders = Order.by_date(@from, @to)
+    @start_date = start_date_param
+    @end_date = end_date_param
+    @orders = Order.by_date(@start_date, @end_date)
   end
 
   private
 
-    def filter_params
-      params.permit(:from, :to)
-    end
-
-    def from_date_param
-      unless filter_params.key?(:from) && filter_params[:from].present?
-        return 5.days.ago.beginning_of_day
+    def start_date_param
+      unless params[:from].present?
+        return DEFAULT_START.days.ago.beginning_of_day
       end
-      filter_params[:from].to_time.beginning_of_day
+      params[:from].to_time.beginning_of_day
     end
 
-    def to_date_param
-      unless filter_params.key?(:to) && filter_params[:to].present?
+    def end_date_param
+      unless params[:to].present?
         return Time.now
       end
-      filter_params[:to].to_time.end_of_day
+      params[:to].to_time.end_of_day
     end
 end

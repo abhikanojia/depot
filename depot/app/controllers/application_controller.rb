@@ -2,15 +2,16 @@ class ApplicationController < ActionController::Base
   include UserLoggedIn
   include AutoSessionTimeout
 
-  auto_session_timeout 5.minute
+  auto_session_timeout 5.minutes
 
   before_action :set_i18n_locale_from_params
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :reset_session
   before_action :authorize
   around_action :append_response_time_in_header
-  before_action  :increment_pageviews_counter
+  before_action :increment_pageviews_counter
 
   protected
+
     def authorize
       unless User.find_by(id: session[:user_id])
         redirect_to login_url, notice: "Please log in"

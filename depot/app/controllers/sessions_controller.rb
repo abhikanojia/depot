@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
   private
 
     def redirect_user_to_dashboard(user)
-      if user.role.eql? 'admin'
+      if current_admin?
         redirect_to admin_reports_url
       else
         redirect_to admin_url

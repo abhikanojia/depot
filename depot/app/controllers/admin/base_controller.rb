@@ -3,8 +3,8 @@ class Admin::BaseController < ApplicationController
 
   protected
     def ensure_user_is_admin
-      unless current_user.role.eql? 'admin'
-        redirect_to store_index_url, notice: 'You don\'t have privilege to access this section.'
+      unless current_admin?
+        redirect_to store_index_url, notice: 'Wrong link.'
       end
     end
 end

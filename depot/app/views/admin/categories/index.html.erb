@@ -6,17 +6,17 @@
     <th>Parent Category</th>
     <th>No. of Products</th>
   </tr>
-    <% @categories.each do |category| %>
-      <tr>
-        <td><%= category.name %></td>
-        <td>
-          <% if category.parent.present? %>
-            <%= category.parent.name %>
-          <% else %>
-            <%= "Root Category" %>
-          <% end %>
-        </td>
-        <td><%= category.products_count %></td>
-      </tr>
-    <% end %>
+  <% @categories.each do |category| %>
+    <tr>
+      <td><%= category.name %></td>
+      <td>
+        <% if category.parent.present? %>
+          <%= category.parent.name %>
+        <% else %>
+          Root Category
+        <% end %>
+      </td>
+      <td><%= category.products_count %></td>
+    </tr>
+  <% end %>
 </table>
