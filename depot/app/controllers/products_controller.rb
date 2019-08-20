@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
             @product.images.create(uploaded_file: image)
           end
         end
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to @product, notice: t('.notice') }
         format.json { render :show, status: :created, location: @product }
       else
         3.times { @product.images.build }
@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
         params[:product][:images_attributes].values.each do |image|
           Image.find(image[:id]).update(uploaded_file: image) if image.key?(:image)
         end
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to @product, notice: t('.notice') }
         format.json { render :show, status: :ok, location: @product }
         @products = Product.all
         ActionCable.server.broadcast 'products',
@@ -71,7 +71,7 @@ class ProductsController < ApplicationController
   def destroy
     if @product.destroy
       respond_to do |format|
-        format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+        format.html { redirect_to products_url, notice: t('.notice') }
         format.json { head :no_content }
       end
     else

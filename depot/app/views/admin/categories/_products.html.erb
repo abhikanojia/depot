@@ -1,0 +1,27 @@
+<% if products.present? %>
+<table>
+  <tr>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Description</th>
+  </tr>
+  <% products.each do |product| %>
+    <tr>
+      <td>
+        <% if product.images.present? %>
+          <%= image_tag(product.images.first.filepath, class: 'list_image') %>
+        <% else %>
+          <%= image_tag(product.image_url, class: 'list_image') %>
+        <% end %>
+      </td>
+      <td><%= product.title %></td>
+      <td><%= product.price %></td>
+      <td><%= product.description %></td>
+    </tr>
+  <% end %>
+</table>
+<% else %>
+  <h3>No Products Found in this category.</h3>
+<% end %>
+

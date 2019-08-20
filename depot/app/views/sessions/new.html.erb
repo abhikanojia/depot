@@ -2,17 +2,17 @@
   <%= form_tag do %>
     <%= render :partial => 'shared/flash' %>
     <fieldset>
-      <legend>Please Log In</legend>
+      <legend><%= t('.legend') %></legend>
       <div>
-        <%= label_tag :name, 'Name:' %>
+        <%= label_tag :name, t('.name') %>
         <%= text_field_tag :name, params[:name] %>
       </div>
       <div>
-        <%= label_tag :password, 'Password:' %>
+        <%= label_tag :password, t('.password') %>
         <%= password_field_tag :password, params[:password] %>
       </div>
       <div>
-        <%= submit_tag "Login" %>
+        <%= submit_tag t('.submit') %>
       </div>
     </fieldset>
   <% end %>

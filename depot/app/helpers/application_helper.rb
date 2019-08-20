@@ -11,4 +11,12 @@ module ApplicationHelper
       User.find(session[:user_id])
     end
   end
+
+  def user_logged_in?
+    session.key? :user_id
+  end
+
+  def pageviews
+    session[request.path] if user_logged_in?
+  end
 end
